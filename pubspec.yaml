@@ -11,6 +11,8 @@ environment:
 
 
 dependencies:
+  domain:
+    path: ./domain
   flutter:
     sdk: flutter
   firebase_auth: ^4.2.8
