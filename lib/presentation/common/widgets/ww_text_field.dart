@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 
 class WWTextField extends ConsumerStatefulWidget {
   const WWTextField({
@@ -102,7 +103,7 @@ class _WWTextFieldState extends ConsumerState<WWTextField> {
                     ),
                   )
                 : null,
-            fillColor: Colors.grey[700],
+            fillColor: ref.textFieldfillColor,
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -112,9 +113,9 @@ class _WWTextFieldState extends ConsumerState<WWTextField> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorBorder: const OutlineInputBorder(
+            errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.red,
+                color: ref.textFieldErrorBorder,
                 width: 2,
               ),
             ),

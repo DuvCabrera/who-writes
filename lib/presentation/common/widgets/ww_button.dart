@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 
 class WWButton extends ConsumerWidget {
   const WWButton({
@@ -32,7 +33,9 @@ class WWButton extends ConsumerWidget {
           Colors.transparent,
         ),
         backgroundColor: MaterialStateProperty.all(
-          onPressed != null ? Colors.orange : Colors.red,
+          onPressed != null
+              ? ref.loginButtonInactiveColor
+              : ref.loginButtonActiveColor,
         ),
         elevation: MaterialStateProperty.all(0),
       ),
