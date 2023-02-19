@@ -1,4 +1,4 @@
-package com.example.who_writes
+package com.duv.who_writes
 
 import io.flutter.embedding.android.FlutterActivity
 
