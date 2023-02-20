@@ -6,7 +6,7 @@ class FirebaseLoginUC extends UseCase<FirebaseLoginUCParams, void> {
 
   final FirebaseDataRepository repository;
   @override
-  Future<void> getRawFutre(FirebaseLoginUCParams params) =>
+  Future<void> getRawFuture(FirebaseLoginUCParams params) =>
       repository.firebaseLogin(email: params.email, password: params.password);
 }
 
