@@ -67,4 +67,10 @@ extension RefTextStyles on WidgetRef {
         fontSize: 16,
         fontWeight: FontWeight.w500,
       );
+
+  TextStyle get loginPageOverlayTitleTS => const TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      );
 }

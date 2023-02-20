@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:domain/exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseRDS {
@@ -18,9 +19,9 @@ class FirebaseRDS {
       log(credential.toString());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        log('No user found for that email.');
+        throw FirebaseUserNotFoundedException();
       } else if (e.code == 'wrong-password') {
-        log('Wrong password provided for that user.');
+        throw FirebaseWrongPassWordException();
       }
     }
   }
