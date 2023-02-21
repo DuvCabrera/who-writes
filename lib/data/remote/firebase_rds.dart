@@ -29,4 +29,24 @@ class FirebaseRDS {
       }
     }
   }
+
+  Future<void> registerWithEmailNPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw FirebaseEmailAlreadyExistsException();
+      } else if (e.code == 'wrong-password') {
+        throw FirebaseWrongPassWordException();
+      } else if (e.code == 'weak-password') {
+        throw FirebaseWeakPasswordException();
+      }
+    }
+  }
 }
