@@ -3,7 +3,7 @@ import 'package:domain/use_case/firebase_login_uc.dart';
 import 'package:domain/use_case/validata_password_uc.dart';
 import 'package:domain/use_case/validate_email_uc.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:who_writes/presentation/auth/login_fail_state.dart';
+import 'package:who_writes/presentation/auth/login/login_fail_state.dart';
 import 'package:who_writes/presentation/common/status/button_status.dart';
 import 'package:who_writes/presentation/common/status/input_status.dart';
 import 'package:who_writes/presentation/common/subscription_holder.dart';
