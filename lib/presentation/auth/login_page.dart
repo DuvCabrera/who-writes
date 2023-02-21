@@ -82,7 +82,9 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
     final stateMap = {
       LoginFailState.unexpectedError: 'An unexpected error occurred',
       LoginFailState.userNotFound: 'The given user was not found',
-      LoginFailState.wrongPasswoard: 'The email or password is incorrect'
+      LoginFailState.wrongPasswoard: 'The email or password is incorrect',
+      LoginFailState.userDisabled: 'Your user has been disabled',
+      LoginFailState.invalidEmail: 'Your email is invalid',
     };
     toggleOverlay(
       LoginErrorOverlay(

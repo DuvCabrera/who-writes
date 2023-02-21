@@ -1,1 +1,7 @@
-enum LoginFailState { userNotFound, wrongPasswoard, unexpectedError }
+enum LoginFailState {
+  userNotFound,
+  wrongPasswoard,
+  unexpectedError,
+  invalidEmail,
+  userDisabled
+}
