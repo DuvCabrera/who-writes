@@ -21,4 +21,20 @@ class FirebaseRepository extends FirebaseDataRepository {
       }
     }
   }
+
+  @override
+  Future<void> firebaseRegister({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      return rds.registerWithEmailNPassword(email: email, password: password);
+    } catch (e) {
+      if (e is WhoWritesException) {
+        rethrow;
+      } else {
+        throw Exception(e.toString());
+      }
+    }
+  }
 }
