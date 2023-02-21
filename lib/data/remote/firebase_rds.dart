@@ -22,6 +22,10 @@ class FirebaseRDS {
         throw FirebaseUserNotFoundedException();
       } else if (e.code == 'wrong-password') {
         throw FirebaseWrongPassWordException();
+      } else if (e.code == 'user-disabled') {
+        throw FirebaseUserDisabledException();
+      } else if (e.code == 'invalid-email') {
+        throw FirebaseInvalidEmailException();
       }
     }
   }

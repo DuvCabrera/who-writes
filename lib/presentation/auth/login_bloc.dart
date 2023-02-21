@@ -152,12 +152,15 @@ class LoginBloc with SubscriptionHolder {
       if (e is WhoWritesException) {
         if (e is FirebaseUserNotFoundedException) {
           _onLoginFailSubject.add(LoginFailState.userNotFound);
-        }
-        if (e is FirebaseWrongPassWordException) {
+        } else if (e is FirebaseWrongPassWordException) {
           _onLoginFailSubject.add(LoginFailState.wrongPasswoard);
-        } else {
-          _onLoginFailSubject.add(LoginFailState.unexpectedError);
+        } else if (e is FirebaseUserDisabledException) {
+          _onLoginFailSubject.add(LoginFailState.userDisabled);
+        } else if (e is FirebaseInvalidEmailException) {
+          _onLoginFailSubject.add(LoginFailState.invalidEmail);
         }
+      } else {
+        _onLoginFailSubject.add(LoginFailState.unexpectedError);
       }
       yield ButtonStatus.inactive;
     }
