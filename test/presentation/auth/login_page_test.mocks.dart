@@ -7,8 +7,9 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:rxdart/rxdart.dart' as _i2;
-import 'package:who_writes/presentation/auth/login_bloc.dart' as _i3;
-import 'package:who_writes/presentation/auth/login_fail_state.dart' as _i5;
+import 'package:who_writes/presentation/auth/login/login_bloc.dart' as _i3;
+import 'package:who_writes/presentation/auth/login/login_fail_state.dart'
+    as _i5;
 import 'package:who_writes/presentation/common/status/button_status.dart'
     as _i6;
 import 'package:who_writes/presentation/common/status/input_status.dart' as _i7;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:who_writes/common/riverpod_provider.dart';
-import 'package:who_writes/presentation/auth/login_bloc.dart';
-import 'package:who_writes/presentation/auth/login_error_overlay.dart';
-import 'package:who_writes/presentation/auth/login_fail_state.dart';
+import 'package:who_writes/presentation/auth/login/login_bloc.dart';
+import 'package:who_writes/presentation/auth/login/login_error_overlay.dart';
+import 'package:who_writes/presentation/auth/login/login_fail_state.dart';
 import 'package:who_writes/presentation/common/action_handler.dart';
 import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 import 'package:who_writes/presentation/common/overlay_state_mixin.dart';
@@ -170,7 +170,6 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                                 textInputAction: TextInputAction.next,
                                 onChanged: _onEmailChanged,
                                 onEditingComplete: () {
-                                  _bloc.emailInputStatusSink.add(status);
                                   FocusScope.of(context)
                                       .requestFocus(_passwordFocusNode);
                                 },
@@ -202,7 +201,6 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                                 textInputAction: TextInputAction.done,
                                 onChanged: _onPasswordChanged,
                                 onEditingComplete: () {
-                                  _bloc.passwordInputStatusSink.add(status);
                                   FocusScope.of(context).unfocus();
                                 },
                               );

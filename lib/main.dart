@@ -4,7 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:who_writes/firebase_options.dart';
-import 'package:who_writes/presentation/auth/login_page.dart';
+import 'package:who_writes/presentation/auth/login/login_page.dart';
+import 'package:who_writes/presentation/register/register_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage.create(),
+      home: RegisterPage(),
     );
   }
 }
