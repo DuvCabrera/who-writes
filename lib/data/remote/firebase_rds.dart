@@ -35,7 +35,7 @@ class FirebaseRDS {
     required String password,
   }) async {
     try {
-      final credential = await firebaseAuth.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
