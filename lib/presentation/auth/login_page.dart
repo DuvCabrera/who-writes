@@ -50,6 +50,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   LoginBloc get _bloc => widget.bloc;
+  final _passwordFocusNode = FocusNode();
 
   String? _validateEmail(InputStatus status) {
     final statusMap = {
@@ -155,7 +156,6 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                               final status = snapshot.data ?? InputStatus.empty;
                               return WWTextField(
                                 controller: _emailController,
-                                // focusNode: _emailFocusNode,
                                 fieldName: 'Email',
                                 fieldNameStyle: ref.loginPageTextFieldNameTS,
                                 hintText: 'Email',
@@ -169,11 +169,11 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                                     ref.loginPageTextFieldFieldNameErrorTS,
                                 textInputAction: TextInputAction.next,
                                 onChanged: _onEmailChanged,
-                                onEditingComplete: () =>
-                                    _bloc.emailInputStatusSink.add(status)
-                                // FocusScope.of(context)
-                                //     .requestFocus(_passwordFocusNode),
-                                ,
+                                onEditingComplete: () {
+                                  _bloc.emailInputStatusSink.add(status);
+                                  FocusScope.of(context)
+                                      .requestFocus(_passwordFocusNode);
+                                },
                               );
                             },
                           ),
@@ -186,7 +186,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                               final status = snapshot.data ?? InputStatus.empty;
                               return WWTextField(
                                 controller: _passwordController,
-                                // focusNode: _passwordFocusNode,
+                                focusNode: _passwordFocusNode,
                                 fieldName: 'Password',
                                 fieldNameStyle: ref.loginPageTextFieldNameTS,
                                 hintText: 'Password',
