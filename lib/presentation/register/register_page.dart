@@ -5,6 +5,7 @@ import 'package:who_writes/presentation/common/action_handler.dart';
 import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 import 'package:who_writes/presentation/common/overlay_state_mixin.dart';
 import 'package:who_writes/presentation/common/responsive_size.dart';
+import 'package:who_writes/presentation/common/status/button_status.dart';
 import 'package:who_writes/presentation/common/status/input_status.dart';
 import 'package:who_writes/presentation/common/text_styles/ref_text_styles.dart';
 import 'package:who_writes/presentation/common/widgets/ww_button.dart';
@@ -52,7 +53,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
 
-  void _onLoginFail(RegisterFailState state) {
+  void _onRegisterFail(RegisterFailState state) {
     final stateMap = {
       RegisterFailState.unexpected: 'An unexpected error occurred',
       RegisterFailState.emailExist: 'The given user was not found',
@@ -86,6 +87,15 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
     return statusMap[status];
   }
 
+  String? _validateConfirmPassword(InputStatus status) {
+    final statusMap = {
+      InputStatus.empty: null,
+      InputStatus.valid: null,
+      InputStatus.wrong: 'Password is not the same'
+    };
+    return statusMap[status];
+  }
+
   void _onPasswordChanged(String password) =>
       _bloc.onPasswordChangeSink.add(password);
 
@@ -108,7 +118,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
           onReceive: (_) {},
           child: ActionHandler(
             stream: _bloc.onFailRegisterStream,
-            onReceive: _onLoginFail,
+            onReceive: _onRegisterFail,
             child: Padding(
               padding: EdgeInsets.all(context.responsiveWidth(27)),
               child: Column(
@@ -140,66 +150,85 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                   SizedBox(
                     height: context.responsiveHeight(80),
                   ),
-                  WWTextField(
-                    controller: _emailController,
-                    fieldName: 'Email',
-                    fieldNameStyle: ref.loginPageTextFieldNameTS,
-                    hintText: 'Email',
-                    hintStyle: ref.loginPageTextFieldHintTS,
-                    inputTextStyle: ref.loginPageTextFieldInputTextTS,
-                    keyboardType: TextInputType.emailAddress,
-                    // errorText: _validateEmail(status),
-                    errorTextStyle: ref.loginPageTextFieldErrorTS,
-                    fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: _onEmailChanged,
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  StreamBuilder<InputStatus>(
+                    stream: _bloc.emailInputStatusStream,
+                    builder: (context, snapshot) {
+                      final status = snapshot.data ?? InputStatus.empty;
+                      return WWTextField(
+                        controller: _emailController,
+                        fieldName: 'Email',
+                        fieldNameStyle: ref.loginPageTextFieldNameTS,
+                        hintText: 'Email',
+                        hintStyle: ref.loginPageTextFieldHintTS,
+                        inputTextStyle: ref.loginPageTextFieldInputTextTS,
+                        keyboardType: TextInputType.emailAddress,
+                        errorText: _validateEmail(status),
+                        errorTextStyle: ref.loginPageTextFieldErrorTS,
+                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        textInputAction: TextInputAction.next,
+                        onChanged: _onEmailChanged,
+                        onEditingComplete: () {
+                          FocusScope.of(context)
+                          .requestFocus(_passwordFocusNode);
+                        },
+                      );
                     },
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  WWTextField(
-                    controller: _passwordController,
-                    focusNode: _passwordFocusNode,
-                    fieldName: 'Password',
-                    fieldNameStyle: ref.loginPageTextFieldNameTS,
-                    hintText: 'Password',
-                    hintStyle: ref.loginPageTextFieldHintTS,
-                    inputTextStyle: ref.loginPageTextFieldInputTextTS,
-                    keyboardType: TextInputType.visiblePassword,
-                    isPassword: true,
-                    // errorText: _validatePassword(status),
-                    errorTextStyle: ref.loginPageTextFieldErrorTS,
-                    fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
-                    textInputAction: TextInputAction.done,
-                    // onChanged: _onPasswordChanged,
-                    onEditingComplete: () {
-                      FocusScope.of(context)
-                          .requestFocus(_confirmPasswordFocusNode);
+                  StreamBuilder<InputStatus>(
+                    stream: _bloc.passwordInputStatusStream,
+                    builder: (context, snapshot) {
+                      final status = snapshot.data ?? InputStatus.empty;
+                      return WWTextField(
+                        controller: _passwordController,
+                        focusNode: _passwordFocusNode,
+                        fieldName: 'Password',
+                        fieldNameStyle: ref.loginPageTextFieldNameTS,
+                        hintText: 'Password',
+                        hintStyle: ref.loginPageTextFieldHintTS,
+                        inputTextStyle: ref.loginPageTextFieldInputTextTS,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: true,
+                        errorText: _validatePassword(status),
+                        errorTextStyle: ref.loginPageTextFieldErrorTS,
+                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        textInputAction: TextInputAction.done,
+                        onChanged: _onPasswordChanged,
+                        onEditingComplete: () {
+                          FocusScope.of(context)
+                              .requestFocus(_confirmPasswordFocusNode);
+                        },
+                      );
                     },
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  WWTextField(
-                    controller: _confirmPasswordController,
-                    focusNode: _confirmPasswordFocusNode,
-                    fieldName: 'Confirm password',
-                    fieldNameStyle: ref.loginPageTextFieldNameTS,
-                    hintText: 'Password',
-                    hintStyle: ref.loginPageTextFieldHintTS,
-                    inputTextStyle: ref.loginPageTextFieldInputTextTS,
-                    keyboardType: TextInputType.visiblePassword,
-                    isPassword: true,
-                    // errorText: _validatePassword(status),
-                    errorTextStyle: ref.loginPageTextFieldErrorTS,
-                    fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
-                    textInputAction: TextInputAction.done,
-                    // onChanged: _onPasswordChanged,
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
+                  StreamBuilder<InputStatus>(
+                    stream: _bloc.confirmPasswoardInputStatusStream,
+                    builder: (context, snapshot) {
+                      final status = snapshot.data ?? InputStatus.empty;
+                      return WWTextField(
+                        controller: _confirmPasswordController,
+                        focusNode: _confirmPasswordFocusNode,
+                        fieldName: 'Confirm password',
+                        fieldNameStyle: ref.loginPageTextFieldNameTS,
+                        hintText: 'Password',
+                        hintStyle: ref.loginPageTextFieldHintTS,
+                        inputTextStyle: ref.loginPageTextFieldInputTextTS,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: true,
+                        errorText: _validateConfirmPassword(status),
+                        errorTextStyle: ref.loginPageTextFieldErrorTS,
+                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        textInputAction: TextInputAction.done,
+                        onChanged: _onPasswordChanged,
+                        onEditingComplete: () {
+                          FocusScope.of(context).unfocus();
+                        },
+                      );
                     },
                   ),
                   Padding(
@@ -207,14 +236,20 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                       top: 60,
                       bottom: 6,
                     ),
-                    child: WWButton(
-                      text: 'Register',
-                      height: context.responsiveHeight(47),
-                      width: context.responsiveWidth(215),
-                      textStyle: ref.loginPageTextButtonTextTS,
-                      // onPressed: buttonStatus == ButtonStatus.active
-                      //     ? _onLoginPressed
-                      //     : null,
+                    child: StreamBuilder<ButtonStatus>(
+                      stream: _bloc.buttonStatusStream,
+                      builder: (context, snapshot) {
+                        final buttonStatus = snapshot.data ?? ButtonStatus.inactive;
+                        return WWButton(
+                          text: 'Register',
+                          height: context.responsiveHeight(47),
+                          width: context.responsiveWidth(215),
+                          textStyle: ref.loginPageTextButtonTextTS,
+                          onPressed: buttonStatus == ButtonStatus.active
+                              ? _onLoginPressed
+                              : null,
+                        );
+                      },
                     ),
                   )
                 ],

@@ -54,7 +54,7 @@ class RegisterBloc with SubscriptionHolder {
   InputStatus get _emailInputStatus => _emailInputStatusSubject.value;
 
   final _passwordInputStatusSubject = BehaviorSubject<InputStatus>();
-  Stream<InputStatus> get passwoarInputStatusStream =>
+  Stream<InputStatus> get passwordInputStatusStream =>
       _passwordInputStatusSubject.stream;
   Sink<InputStatus> get passwordInputStatusSink =>
       _passwordInputStatusSubject.sink;
@@ -62,7 +62,7 @@ class RegisterBloc with SubscriptionHolder {
       _passwordInputStatusSubject.valueOrNull ?? InputStatus.empty;
 
   final _confirmPasswordInputStatusSubject = BehaviorSubject<InputStatus>();
-  Stream<InputStatus> get passwoardInputStatusStream =>
+  Stream<InputStatus> get confirmPasswoardInputStatusStream =>
       _confirmPasswordInputStatusSubject.stream;
   Sink<InputStatus> get confirmPasswordInputStatusSink =>
       _confirmPasswordInputStatusSubject.sink;
