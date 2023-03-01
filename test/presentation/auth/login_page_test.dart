@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:who_writes/presentation/auth/login_bloc.dart';
-import 'package:who_writes/presentation/auth/login_fail_state.dart';
-import 'package:who_writes/presentation/auth/login_page.dart';
+import 'package:who_writes/presentation/auth/login/login_bloc.dart';
+import 'package:who_writes/presentation/auth/login/login_fail_state.dart';
+import 'package:who_writes/presentation/auth/login/login_page.dart';
 import 'package:who_writes/presentation/common/status/input_status.dart';
 import 'package:who_writes/presentation/common/widgets/ww_button.dart';
 
