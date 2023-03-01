@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:who_writes/common/riverpod_provider.dart';
+import 'package:who_writes/presentation/auth/register/register_bloc.dart';
+import 'package:who_writes/presentation/auth/register/register_error_overlay.dart';
+import 'package:who_writes/presentation/auth/register/register_fail_state.dart';
 import 'package:who_writes/presentation/common/action_handler.dart';
 import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 import 'package:who_writes/presentation/common/overlay_state_mixin.dart';
@@ -10,9 +13,6 @@ import 'package:who_writes/presentation/common/status/input_status.dart';
 import 'package:who_writes/presentation/common/text_styles/ref_text_styles.dart';
 import 'package:who_writes/presentation/common/widgets/ww_button.dart';
 import 'package:who_writes/presentation/common/widgets/ww_text_field.dart';
-import 'package:who_writes/presentation/register/register_bloc.dart';
-import 'package:who_writes/presentation/register/register_error_overlay.dart';
-import 'package:who_writes/presentation/register/register_fail_state.dart';
 
 final registerBlocProvider = Provider.autoDispose<RegisterBloc>((ref) {
   final validateEmailUC = ref.watch(validateEmailUCProvider);
@@ -164,12 +164,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                         keyboardType: TextInputType.emailAddress,
                         errorText: _validateEmail(status),
                         errorTextStyle: ref.loginPageTextFieldErrorTS,
-                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        fieldNameErrorStyle:
+                            ref.loginPageTextFieldFieldNameErrorTS,
                         textInputAction: TextInputAction.next,
                         onChanged: _onEmailChanged,
                         onEditingComplete: () {
                           FocusScope.of(context)
-                          .requestFocus(_passwordFocusNode);
+                              .requestFocus(_passwordFocusNode);
                         },
                       );
                     },
@@ -193,7 +194,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                         isPassword: true,
                         errorText: _validatePassword(status),
                         errorTextStyle: ref.loginPageTextFieldErrorTS,
-                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        fieldNameErrorStyle:
+                            ref.loginPageTextFieldFieldNameErrorTS,
                         textInputAction: TextInputAction.done,
                         onChanged: _onPasswordChanged,
                         onEditingComplete: () {
@@ -222,9 +224,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                         isPassword: true,
                         errorText: _validateConfirmPassword(status),
                         errorTextStyle: ref.loginPageTextFieldErrorTS,
-                        fieldNameErrorStyle: ref.loginPageTextFieldFieldNameErrorTS,
+                        fieldNameErrorStyle:
+                            ref.loginPageTextFieldFieldNameErrorTS,
                         textInputAction: TextInputAction.done,
-                        onChanged: _onPasswordChanged,
+                        onChanged: _onConfirmPasswordChanged,
                         onEditingComplete: () {
                           FocusScope.of(context).unfocus();
                         },
@@ -239,7 +242,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                     child: StreamBuilder<ButtonStatus>(
                       stream: _bloc.buttonStatusStream,
                       builder: (context, snapshot) {
-                        final buttonStatus = snapshot.data ?? ButtonStatus.inactive;
+                        final buttonStatus =
+                            snapshot.data ?? ButtonStatus.inactive;
                         return WWButton(
                           text: 'Register',
                           height: context.responsiveHeight(47),
