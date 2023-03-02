@@ -8,4 +8,9 @@ abstract class FirebaseDataRepository {
     required String email,
     required String password,
   });
+  Future<void> firebaseRecover({required String email});
+  Future<void> firebaseConfirmRecover({
+    required String code,
+    required String newPassword,
+  });
 }
