@@ -1,9 +1,9 @@
 import 'package:domain/use_case/firebase_login_uc.dart';
+import 'package:domain/use_case/firebase_register_uc.dart';
 import 'package:domain/use_case/validata_password_uc.dart';
 import 'package:domain/use_case/validate_email_uc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:who_writes/data/remote/firebase_rds.dart';
 import 'package:who_writes/data/repositories/firebase_repository.dart';
 
@@ -32,4 +32,9 @@ final validateEmailUCProvider = Provider<ValidateEmailUC>((ref) {
 
 final validatePasswordUCProvider = Provider<ValidatePasswordUC>((ref) {
   return ValidatePasswordUC();
+});
+
+final firebaseRegisterUCProvider = Provider<FirebaseRegisterUC>((ref) {
+  final repository = ref.watch(firebaseRepositoryProvider);
+  return FirebaseRegisterUC(repository);
 });

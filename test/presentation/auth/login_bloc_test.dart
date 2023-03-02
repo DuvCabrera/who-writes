@@ -9,8 +9,8 @@ import 'package:domain/use_case/validate_email_uc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:who_writes/presentation/auth/login_bloc.dart';
-import 'package:who_writes/presentation/auth/login_fail_state.dart';
+import 'package:who_writes/presentation/auth/login/login_bloc.dart';
+import 'package:who_writes/presentation/auth/login/login_fail_state.dart';
 import 'package:who_writes/presentation/common/status/button_status.dart';
 
 import 'login_bloc_test.mocks.dart';

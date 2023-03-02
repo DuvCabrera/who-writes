@@ -73,4 +73,58 @@ void main() {
       ),
     ).called(1);
   });
+
+  test('firebaseRegister should complete without error', () async {
+    when(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenAnswer((realInvocation) async => Void);
+    await sut.firebaseRegister(email: 'email', password: 'password');
+    verify(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).called(1);
+    verifyNoMoreInteractions(firebaseRDS);
+  });
+
+  test('firebaseRegister should rethrow when exception is  WhoWritesException',
+      () {
+    when(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenThrow(FirebaseWeakPasswordException());
+    final future = sut.firebaseRegister(email: 'email', password: 'password');
+    expect(future, throwsA(isA<FirebaseWeakPasswordException>()));
+    verify(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).called(1);
+    verifyNoMoreInteractions(firebaseRDS);
+  });
+
+  test('firebaseRegister should throw an exception when throws', () {
+    when(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenThrow(Exception());
+    final future = sut.firebaseRegister(email: 'email', password: 'password');
+    expect(future, throwsA(isA<Exception>()));
+    verify(
+      firebaseRDS.registerWithEmailNPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).called(1);
+    verifyNoMoreInteractions(firebaseRDS);
+  });
 }
