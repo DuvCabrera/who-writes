@@ -104,4 +104,67 @@ void main() {
     ).called(1);
     verifyNoMoreInteractions(firebaseAuth);
   });
+
+  test(
+      'registerWithEmailNPassword should throw FirebaseEmailAlreadyExistsException when email already exist',
+      () async {
+    when(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+    final future =
+        sut.registerWithEmailNPassword(email: '', password: 'password');
+    expect(future, throwsA(isA<FirebaseEmailAlreadyExistsException>()));
+    verify(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    );
+    verifyNoMoreInteractions(firebaseAuth);
+  });
+
+  test(
+      'registerWithEmailNPassword should throw FirebaseWrongPassWordException when password is wrong',
+      () async {
+    when(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenThrow(FirebaseAuthException(code: 'wrong-password'));
+    final future =
+        sut.registerWithEmailNPassword(email: '', password: 'password');
+    expect(future, throwsA(isA<FirebaseWrongPassWordException>()));
+    verify(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    );
+    verifyNoMoreInteractions(firebaseAuth);
+  });
+
+  test(
+      'registerWithEmailNPassword should throw FirebaseWeakPasswordException when email is weak',
+      () async {
+    when(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    ).thenThrow(FirebaseAuthException(code: 'weak-password'));
+    final future =
+        sut.registerWithEmailNPassword(email: '', password: 'password');
+    expect(future, throwsA(isA<FirebaseWeakPasswordException>()));
+    verify(
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: anyNamed('email'),
+        password: anyNamed('password'),
+      ),
+    );
+    verifyNoMoreInteractions(firebaseAuth);
+  });
 }
