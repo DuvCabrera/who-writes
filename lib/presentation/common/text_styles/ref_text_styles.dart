@@ -73,4 +73,16 @@ extension RefTextStyles on WidgetRef {
         fontSize: 24,
         fontWeight: FontWeight.w700,
       );
+
+  TextStyle get recoverPageTitleTS => const TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      );
+
+  TextStyle get recoverPageSubTitleTS => const TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      );
 }
