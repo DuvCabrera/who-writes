@@ -61,28 +61,4 @@ class FirebaseRDS {
       }
     }
   }
-
-  Future<void> confirmNewPasswordWithCode({
-    required String code,
-    required String newPassword,
-  }) async {
-    try {
-      await firebaseAuth.confirmPasswordReset(
-        code: code,
-        newPassword: newPassword,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'expired-action-code') {
-        throw FirebaseExpiredActionCodeException();
-      } else if (e.code == 'invalid-action-code') {
-        throw FirebaseInvalidActionCodeException();
-      } else if (e.code == 'user-disabled') {
-        throw FirebaseAuthUserDisabledException();
-      } else if (e.code == 'user-not-found') {
-        throw FirebaseAuthConfirmUserNotFoundException();
-      } else if (e.code == 'weak-password') {
-        throw FirebaseAuthWeakPassowrdException();
-      }
-    }
-  }
 }

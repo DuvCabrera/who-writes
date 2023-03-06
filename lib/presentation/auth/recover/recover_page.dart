@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:who_writes/common/riverpod_provider.dart';
 import 'package:who_writes/presentation/auth/recover/recover_bloc.dart';
 import 'package:who_writes/presentation/auth/recover/recover_fail_state.dart';
+import 'package:who_writes/presentation/auth/recover/recover_success_overlay.dart';
 import 'package:who_writes/presentation/common/action_handler.dart';
 import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 import 'package:who_writes/presentation/common/overlay_state_mixin.dart';
@@ -47,7 +48,14 @@ class _RecoverPageState extends ConsumerState<RecoverPage>
   RecoverBloc get _bloc => widget.bloc;
 
   void _onRecoverSuccess() {
-    // toggleOverlay(child, ref);
+    toggleOverlay(
+      RecoverSuccessOverlay(
+        title: 'Check seu email',
+        removeOverlay: removeOverlay,
+      ),
+      ref,
+    );
+    Navigator.of(context).pop();
   }
 
   void _onRecoverFail(RecoverFailState state) {
@@ -56,7 +64,7 @@ class _RecoverPageState extends ConsumerState<RecoverPage>
       RecoverFailState.userNotFound: 'User not found',
       RecoverFailState.unexpectedError: 'An unexpected error occurred'
     };
-    // toggleOverlay(child, ref)
+    SnackBar(content: Text(stateMap[state] ?? 'An unexpected error occurred'));
   }
 
   String? _validateEmail(InputStatus status) {

@@ -50,23 +50,4 @@ class FirebaseRepository extends FirebaseDataRepository {
       }
     }
   }
-
-  @override
-  Future<void> firebaseConfirmRecover({
-    required String code,
-    required String newPassword,
-  }) async {
-    try {
-      return rds.confirmNewPasswordWithCode(
-        code: code,
-        newPassword: newPassword,
-      );
-    } catch (e) {
-      if (e is WhoWritesException) {
-        rethrow;
-      } else {
-        throw Exception(e.toString());
-      }
-    }
-  }
 }
