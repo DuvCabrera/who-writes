@@ -19,7 +19,7 @@ dependencies:
   firebase_auth: ^4.2.8
   firebase_core: ^2.6.1
   flutter_riverpod: ^2.2.0
-  rxdart: 
+  rxdart:
 
 
 dev_dependencies:
