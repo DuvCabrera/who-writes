@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:who_writes/common/riverpod_provider.dart';
+import 'package:who_writes/common/routing.dart';
 import 'package:who_writes/presentation/auth/login/login_bloc.dart';
 import 'package:who_writes/presentation/auth/login/login_error_overlay.dart';
 import 'package:who_writes/presentation/auth/login/login_fail_state.dart';
@@ -121,7 +123,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
-                              vertical: context.responsiveHeight(80),
+                              vertical: context.responsiveHeight(50),
                             ),
                             child: Text(
                               'Who writes?',
@@ -238,7 +240,9 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    GoRouter.of(context).pushRegisterPage();
+                                  },
                                   child: Text(
                                     'Register',
                                     style:
@@ -246,7 +250,9 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    GoRouter.of(context).pushRecoverPage();
+                                  },
                                   child: Text(
                                     'Forgot password',
                                     style: ref.loginPageTextButtonForgotTextTS,

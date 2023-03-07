@@ -21,6 +21,7 @@ dependencies:
   flutter_riverpod: ^2.2.0
   go_router: ^6.2.0
   open_ai_simplified: ^0.0.8
+  path_provider: ^2.0.12
   rxdart:
 
 
