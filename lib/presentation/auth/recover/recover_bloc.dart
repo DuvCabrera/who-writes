@@ -29,6 +29,7 @@ class RecoverBloc with SubscriptionHolder {
       }
       return ButtonStatus.active;
     }).listen(_buttonStatusSubject.add).addTo(subscriptions);
+
     _onRecoverPressedSubject
         .flatMap((_) => _tryRecover())
         .listen(_buttonStatusSubject.add)

@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:ffi';
+
 import 'package:domain/exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -165,6 +167,36 @@ void main() {
         password: anyNamed('password'),
       ),
     );
+    verifyNoMoreInteractions(firebaseAuth);
+  });
+
+  test('recoverWithEmail should finish without error', () async {
+    when(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')))
+        .thenAnswer((realInvocation) async => Void);
+    await sut.recoverWithEmail(email: 'email');
+    verify(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')));
+    verifyNoMoreInteractions(firebaseAuth);
+  });
+
+  test(
+      'recoverWithEmail should throw FirebaseAuthInvalidEmailException when emais is invalid',
+      () async {
+    when(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')))
+        .thenThrow(FirebaseAuthException(code: 'auth/invalid-email'));
+    final future = sut.recoverWithEmail(email: 'email');
+    expect(future, throwsA(isA<FirebaseAuthInvalidEmailException>()));
+    verify(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')));
+    verifyNoMoreInteractions(firebaseAuth);
+  });
+
+  test(
+      'recoverWithEmail should throw FirebaseAuthUserNotFoundException when user is not founded',
+      () async {
+    when(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')))
+        .thenThrow(FirebaseAuthException(code: 'auth/user-not-found'));
+    final future = sut.recoverWithEmail(email: 'email');
+    expect(future, throwsA(isA<FirebaseAuthUserNotFoundException>()));
+    verify(firebaseAuth.sendPasswordResetEmail(email: anyNamed('email')));
     verifyNoMoreInteractions(firebaseAuth);
   });
 }

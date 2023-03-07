@@ -80,4 +80,15 @@ class MockFirebaseRDS extends _i1.Mock implements _i3.FirebaseRDS {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> recoverWithEmail({required String? email}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #recoverWithEmail,
+          [],
+          {#email: email},
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

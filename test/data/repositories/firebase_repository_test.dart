@@ -127,4 +127,31 @@ void main() {
     ).called(1);
     verifyNoMoreInteractions(firebaseRDS);
   });
+
+  test('firebaseRecover should run without error', () async {
+    when(firebaseRDS.recoverWithEmail(email: anyNamed('email')))
+        .thenAnswer((realInvocation) async => Void);
+    await sut.firebaseRecover(email: 'email');
+    verify(firebaseRDS.recoverWithEmail(email: anyNamed('email')));
+    verifyNoMoreInteractions(firebaseRDS);
+  });
+
+  test('firebaseRecover should rethrow when a WhoWritesException occurs ',
+      () async {
+    when(firebaseRDS.recoverWithEmail(email: anyNamed('email')))
+        .thenThrow(FirebaseAuthUserNotFoundException());
+    final future = sut.firebaseRecover(email: 'email');
+    expect(future, throwsA(isA<FirebaseAuthUserNotFoundException>()));
+    verify(firebaseRDS.recoverWithEmail(email: anyNamed('email')));
+    verifyNoMoreInteractions(firebaseRDS);
+  });
+
+  test('firebaseRecover should throw exception when throws ', () async {
+    when(firebaseRDS.recoverWithEmail(email: anyNamed('email')))
+        .thenThrow(Exception());
+    final future = sut.firebaseRecover(email: 'email');
+    expect(future, throwsA(isA<Exception>()));
+    verify(firebaseRDS.recoverWithEmail(email: anyNamed('email')));
+    verifyNoMoreInteractions(firebaseRDS);
+  });
 }

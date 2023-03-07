@@ -58,7 +58,7 @@ class LoginErrorOverlay extends ConsumerWidget {
                     height: context.responsiveHeight(22),
                     width: context.responsiveWidth(80),
                     onPressed: () {
-                      tryAgain;
+                      tryAgain();
                     },
                   ),
                   // TODO(duv): rota para tela de criação de conta
@@ -67,7 +67,7 @@ class LoginErrorOverlay extends ConsumerWidget {
                     height: context.responsiveHeight(22),
                     width: context.responsiveWidth(80),
                     onPressed: () {
-                      tryAgain;
+                      tryAgain();
                     },
                   )
                 ],
