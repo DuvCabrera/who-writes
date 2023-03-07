@@ -53,6 +53,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
+    _bloc.dispose();
+    super.dispose();
+  }
+
   void _onRegisterFail(RegisterFailState state) {
     final stateMap = {
       RegisterFailState.unexpected: 'An unexpected error occurred',
