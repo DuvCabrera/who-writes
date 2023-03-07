@@ -19,7 +19,9 @@ final recoverBlocProvider = Provider.autoDispose<RecoverBloc>((ref) {
   final validateEmailUC = ref.watch(validateEmailUCProvider);
 
   final bloc = RecoverBloc(
-      firebaseRecoverUC: firebaseRecoverUC, validateEmailUC: validateEmailUC);
+    firebaseRecoverUC: firebaseRecoverUC,
+    validateEmailUC: validateEmailUC,
+  );
   ref.onDispose(bloc.dispose);
   return bloc;
 });
