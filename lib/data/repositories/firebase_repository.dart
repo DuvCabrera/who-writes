@@ -37,4 +37,17 @@ class FirebaseRepository extends FirebaseDataRepository {
       }
     }
   }
+
+  @override
+  Future<void> firebaseRecover({required String email}) async {
+    try {
+      return rds.recoverWithEmail(email: email);
+    } catch (e) {
+      if (e is WhoWritesException) {
+        rethrow;
+      } else {
+        throw Exception(e.toString());
+      }
+    }
+  }
 }

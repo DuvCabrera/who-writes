@@ -17,3 +17,17 @@ class FirebaseUserDisabledException implements WhoWritesException {}
 class FirebaseWeakPasswordException implements WhoWritesException {}
 
 class FirebaseEmailAlreadyExistsException implements WhoWritesException {}
+
+class FirebaseAuthInvalidEmailException implements WhoWritesException {}
+
+class FirebaseAuthUserNotFoundException implements WhoWritesException {}
+
+class FirebaseExpiredActionCodeException implements WhoWritesException {}
+
+class FirebaseInvalidActionCodeException implements WhoWritesException {}
+
+class FirebaseAuthUserDisabledException implements WhoWritesException {}
+
+class FirebaseAuthConfirmUserNotFoundException implements WhoWritesException {}
+
+class FirebaseAuthWeakPassowrdException implements WhoWritesException {}

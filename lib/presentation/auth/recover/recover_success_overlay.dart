@@ -3,16 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:who_writes/presentation/common/colors/ref_colors.dart';
 import 'package:who_writes/presentation/common/responsive_size.dart';
 import 'package:who_writes/presentation/common/text_styles/ref_text_styles.dart';
+
 import 'package:who_writes/presentation/common/widgets/ww_button.dart';
 
-class LoginErrorOverlay extends ConsumerWidget {
-  const LoginErrorOverlay({
+class RecoverSuccessOverlay extends ConsumerWidget {
+  const RecoverSuccessOverlay({
+    required this.removeOverlay,
     required this.title,
-    required this.tryAgain,
     super.key,
   });
   final String title;
-  final VoidCallback tryAgain;
+  final VoidCallback removeOverlay;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,39 +41,24 @@ class LoginErrorOverlay extends ConsumerWidget {
                 ),
               ),
             ),
-            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  WWButton(
-                    text: 'Try again',
-                    height: context.responsiveHeight(22),
-                    width: context.responsiveWidth(80),
-                    onPressed: tryAgain,
-                  ),
-                  // TODO(duv): rota para tela de recuperação de conta
-                  WWButton(
-                    text: 'Recover acc',
-                    height: context.responsiveHeight(22),
-                    width: context.responsiveWidth(80),
-                    onPressed: () {
-                      tryAgain();
-                    },
-                  ),
-                  // TODO(duv): rota para tela de criação de conta
-                  WWButton(
-                    text: 'Create acc',
-                    height: context.responsiveHeight(22),
-                    width: context.responsiveWidth(80),
-                    onPressed: () {
-                      tryAgain();
-                    },
-                  )
-                ],
+              child: Material(
+                color: ref.textFieldfillColor,
+                child: Text(
+                  'Uma mensagem foi enviada para o seu email',
+                  style: ref.loginPageSubTitleTS,
+                  textAlign: TextAlign.start,
+                ),
               ),
-            )
+            ),
+            const Spacer(),
+            WWButton(
+              text: 'Ok',
+              height: context.responsiveHeight(22),
+              width: context.responsiveWidth(80),
+              onPressed: removeOverlay,
+            ),
           ],
         ),
       ),

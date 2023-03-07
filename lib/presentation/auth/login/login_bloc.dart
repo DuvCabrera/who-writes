@@ -147,6 +147,7 @@ class LoginBloc with SubscriptionHolder {
           password: _passwordValue ?? '',
         ),
       );
+      _onLoginSuccessSubject.add(null);
       yield ButtonStatus.inactive;
     } catch (e) {
       if (e is WhoWritesException) {

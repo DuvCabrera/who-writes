@@ -1,4 +1,5 @@
 import 'package:domain/use_case/firebase_login_uc.dart';
+import 'package:domain/use_case/firebase_recover_uc.dart';
 import 'package:domain/use_case/firebase_register_uc.dart';
 import 'package:domain/use_case/validata_password_uc.dart';
 import 'package:domain/use_case/validate_email_uc.dart';
@@ -37,4 +38,9 @@ final validatePasswordUCProvider = Provider<ValidatePasswordUC>((ref) {
 final firebaseRegisterUCProvider = Provider<FirebaseRegisterUC>((ref) {
   final repository = ref.watch(firebaseRepositoryProvider);
   return FirebaseRegisterUC(repository);
+});
+
+final firebaseRecoverUCProvider = Provider<FirebaseRecoverUC>((ref) {
+  final repository = ref.watch(firebaseRepositoryProvider);
+  return FirebaseRecoverUC(repository);
 });

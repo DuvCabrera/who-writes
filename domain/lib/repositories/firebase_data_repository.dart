@@ -8,4 +8,6 @@ abstract class FirebaseDataRepository {
     required String email,
     required String password,
   });
+  Future<void> firebaseRecover({required String email});
+
 }

@@ -49,4 +49,16 @@ class FirebaseRDS {
       }
     }
   }
+
+  Future<void> recoverWithEmail({required String email}) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'auth/invalid-email') {
+        throw FirebaseAuthInvalidEmailException();
+      } else if (e.code == 'auth/user-not-found') {
+        throw FirebaseAuthUserNotFoundException();
+      }
+    }
+  }
 }
