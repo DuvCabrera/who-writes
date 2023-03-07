@@ -1,5 +1,5 @@
-class CompletionResponse {
-  CompletionResponse(
+class CompletionResponseDM {
+  CompletionResponseDM(
     this.id,
     this.created,
     this.answer,

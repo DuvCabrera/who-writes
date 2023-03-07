@@ -3,12 +3,14 @@ import 'package:domain/repositories/open_ai_data_repository.dart';
 import 'package:domain/use_case/use_case.dart';
 
 class OpenAiGetCompletionUC
-    extends UseCase<OpenAiGetCompletionUCParams, CompletionResponse> {
+    extends UseCase<OpenAiGetCompletionUCParams, CompletionResponseDM> {
   OpenAiGetCompletionUC(this.repository);
 
   final OpenAiDataRepository repository;
   @override
-  Future<CompletionResponse> getRawFuture(OpenAiGetCompletionUCParams params) =>
+  Future<CompletionResponseDM> getRawFuture(
+    OpenAiGetCompletionUCParams params,
+  ) =>
       repository.getCompletion(text: params.text);
 }
 
