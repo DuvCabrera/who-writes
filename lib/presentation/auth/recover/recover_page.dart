@@ -49,6 +49,13 @@ class _RecoverPageState extends ConsumerState<RecoverPage>
   final _emailController = TextEditingController();
   RecoverBloc get _bloc => widget.bloc;
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _bloc.dispose();
+    super.dispose();
+  }
+
   void _onRecoverSuccess() {
     toggleOverlay(
       RecoverSuccessOverlay(

@@ -54,6 +54,15 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
   LoginBloc get _bloc => widget.bloc;
   final _passwordFocusNode = FocusNode();
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _bloc.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   String? _validateEmail(InputStatus status) {
     final statusMap = {
       InputStatus.empty: null,
@@ -89,6 +98,8 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
       LoginFailState.userDisabled: 'Your user has been disabled',
       LoginFailState.invalidEmail: 'Your email is invalid',
     };
+    _emailController.clear();
+    _passwordController.clear();
     toggleOverlay(
       LoginErrorOverlay(
         title: stateMap[state] ?? 'An unexpected error occurred',
