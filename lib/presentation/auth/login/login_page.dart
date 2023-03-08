@@ -117,8 +117,9 @@ class _LoginPageState extends ConsumerState<LoginPage> with OverlayStateMixin {
         child: SingleChildScrollView(
           child: ActionHandler<void>(
             stream: _bloc.onLoginSuccessStream,
-            // Todo(duv): criar roteamento funçao para troca de tela
-            onReceive: (value) {},
+            onReceive: (value) {
+              GoRouter.of(context).pushHomePage();
+            },
             child: ActionHandler<LoginFailState>(
               stream: _bloc.onLoginFailStream,
               onReceive: _onLoginFail,
