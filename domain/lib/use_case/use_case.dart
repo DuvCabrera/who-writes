@@ -16,3 +16,5 @@ abstract class UseCase<P, R> {
     }
   }
 }
+
+class NoParams {}

@@ -61,4 +61,16 @@ class FirebaseRDS {
       }
     }
   }
+
+  Future<bool> isUserLogged() async {
+    try {
+      if (firebaseAuth.currentUser != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

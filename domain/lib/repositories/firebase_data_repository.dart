@@ -9,5 +9,5 @@ abstract class FirebaseDataRepository {
     required String password,
   });
   Future<void> firebaseRecover({required String email});
-
+  Future<bool> userAreLogged();
 }

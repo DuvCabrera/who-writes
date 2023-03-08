@@ -1,3 +1,4 @@
+import 'package:domain/use_case/firebase_logged_user_uc.dart';
 import 'package:domain/use_case/firebase_login_uc.dart';
 import 'package:domain/use_case/firebase_recover_uc.dart';
 import 'package:domain/use_case/firebase_register_uc.dart';
@@ -72,4 +73,9 @@ final firebaseRegisterUCProvider = Provider<FirebaseRegisterUC>((ref) {
 final firebaseRecoverUCProvider = Provider<FirebaseRecoverUC>((ref) {
   final repository = ref.watch(firebaseRepositoryProvider);
   return FirebaseRecoverUC(repository);
+});
+
+final firebaseLoggedUserUCProvider = Provider<FirebaseLoggedUserUC>((ref) {
+  final repository = ref.watch(firebaseRepositoryProvider);
+  return FirebaseLoggedUserUC(repository);
 });

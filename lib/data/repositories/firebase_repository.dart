@@ -50,4 +50,7 @@ class FirebaseRepository extends FirebaseDataRepository {
       }
     }
   }
+
+  @override
+  Future<bool> userAreLogged() => rds.isUserLogged();
 }
