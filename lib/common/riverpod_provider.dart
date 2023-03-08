@@ -8,7 +8,9 @@ import 'package:domain/use_case/validata_password_uc.dart';
 import 'package:domain/use_case/validate_email_uc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:open_ai_simplified/open_ai_simplified.dart';
+import 'package:who_writes/data/cache/open_ai_cds.dart';
 import 'package:who_writes/data/remote/firebase_rds.dart';
 import 'package:who_writes/data/remote/open_ai_rds.dart';
 import 'package:who_writes/data/repositories/firebase_repository.dart';
@@ -16,6 +18,10 @@ import 'package:who_writes/data/repositories/open_ai_repository.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
+});
+
+final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
+  return const FlutterSecureStorage();
 });
 
 final openIAProvider = Provider<OpenIARepository>((ref) {
@@ -32,24 +38,32 @@ final openAiRDSProvider = Provider<OpenAIRDS>((ref) {
   return OpenAIRDS(openIA);
 });
 
+final openAiCDSProvider = Provider<OpenAiCDS>((ref) {
+  final secureStorage = ref.watch(secureStorageProvider);
+  return OpenAiCDS(secureStorage);
+});
+
 final firebaseRepositoryProvider = Provider<FirebaseRepository>((ref) {
   final firebaseRDS = ref.watch(firebaseRDSProvider);
   return FirebaseRepository(firebaseRDS);
 });
 
-final openAIRepositoryProvider = Provider<OpenAiRepository>((ref) {
+final openAIRepositoryProvider = FutureProvider<OpenAiRepository>((ref) async {
   final rds = ref.watch(openAiRDSProvider);
-  return OpenAiRepository(rds);
+  final cds = ref.watch(openAiCDSProvider);
+  final repository = OpenAiRepository(rds: rds, cds: cds);
+  await repository.addKeyIfKeyExist();
+  return repository;
 });
 
 final openAiAddKeyUCProvider = Provider<OpenAiAddKeyUC>((ref) {
-  final repository = ref.watch(openAIRepositoryProvider);
-  return OpenAiAddKeyUC(repository);
+  final repository = ref.watch(openAIRepositoryProvider).value;
+  return OpenAiAddKeyUC(repository!);
 });
 
 final openAIGetCompletionUCProvider = Provider<OpenAiGetCompletionUC>((ref) {
-  final repository = ref.watch(openAIRepositoryProvider);
-  return OpenAiGetCompletionUC(repository);
+  final repository = ref.watch(openAIRepositoryProvider).value;
+  return OpenAiGetCompletionUC(repository!);
 });
 
 final firebaseLoginUCProvider = Provider<FirebaseLoginUC>((ref) {

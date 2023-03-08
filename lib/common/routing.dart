@@ -1,5 +1,7 @@
+import 'package:domain/use_case/use_case.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:who_writes/common/riverpod_provider.dart';
 import 'package:who_writes/presentation/auth/login/login_page.dart';
 import 'package:who_writes/presentation/auth/recover/recover_page.dart';
 import 'package:who_writes/presentation/auth/register/register_page.dart';
@@ -16,7 +18,23 @@ const _recoverPath = _loginPath + _recoverPage;
 const _homePath = _loginPath + _homePage;
 
 final routesProvider = Provider.autoDispose<GoRouter>((ref) {
+  final isUserLoggedUC = ref.watch(firebaseLoggedUserUCProvider);
   return GoRouter(
+    initialLocation: _homePath,
+    redirect: (context, state) async {
+      final isUserLoggedIn = await isUserLoggedUC.getFuture(NoParams());
+      final isHomePage = state.location == _homePath;
+      if (isHomePage) {
+        return isUserLoggedIn ? null : _loginPath;
+      }
+      final isLoginPage = state.location == _loginPath;
+
+      if (isLoginPage) {
+        return isUserLoggedIn ? _homePath : null;
+      }
+
+      return null;
+    },
     routes: [
       GoRoute(
         path: _loginPath,
