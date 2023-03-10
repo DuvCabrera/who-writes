@@ -28,7 +28,7 @@ class _ConfigurationOverlayState extends ConsumerState<ConfigurationOverlay> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ref.backGroundColor,
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(

@@ -2,6 +2,8 @@ abstract class WhoWritesException implements Exception {}
 
 class UnexpectedException implements WhoWritesException {}
 
+class NullResponseException implements WhoWritesException {}
+
 class EmptyFormFieldException implements WhoWritesException {}
 
 class InvalidFormFieldException implements WhoWritesException {}

@@ -4,6 +4,7 @@ import 'package:domain/use_case/firebase_recover_uc.dart';
 import 'package:domain/use_case/firebase_register_uc.dart';
 import 'package:domain/use_case/open_ai_add_key_uc.dart';
 import 'package:domain/use_case/open_ai_get_completion_uc.dart';
+import 'package:domain/use_case/open_ai_verify_api_key_uc.dart';
 import 'package:domain/use_case/validata_password_uc.dart';
 import 'package:domain/use_case/validate_email_uc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,12 +59,12 @@ final openAIRepositoryProvider = FutureProvider<OpenAiRepository>((ref) async {
 
 final openAiAddKeyUCProvider = Provider<OpenAiAddKeyUC>((ref) {
   final repository = ref.watch(openAIRepositoryProvider).value;
-  return OpenAiAddKeyUC(repository!);
+  return OpenAiAddKeyUC(repository);
 });
 
 final openAIGetCompletionUCProvider = Provider<OpenAiGetCompletionUC>((ref) {
   final repository = ref.watch(openAIRepositoryProvider).value;
-  return OpenAiGetCompletionUC(repository!);
+  return OpenAiGetCompletionUC(repository);
 });
 
 final firebaseLoginUCProvider = Provider<FirebaseLoginUC>((ref) {
@@ -92,4 +93,9 @@ final firebaseRecoverUCProvider = Provider<FirebaseRecoverUC>((ref) {
 final firebaseLoggedUserUCProvider = Provider<FirebaseLoggedUserUC>((ref) {
   final repository = ref.watch(firebaseRepositoryProvider);
   return FirebaseLoggedUserUC(repository);
+});
+
+final openAiVerifyApiKeyUcProvider = Provider<OpenAiVerifyApiKeyUC>((ref) {
+  final repository = ref.watch(openAIRepositoryProvider).value;
+  return OpenAiVerifyApiKeyUC(repository);
 });

@@ -34,4 +34,14 @@ class OpenAiRepository extends OpenAiDataRepository {
       return;
     }
   }
+
+  @override
+  Future<bool> isApiKeyAdded() async {
+    final key = await cds.getApiKey();
+    if (key != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

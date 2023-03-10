@@ -1,3 +1,4 @@
+import 'package:domain/exceptions.dart';
 import 'package:domain/models/completion_response.dart';
 import 'package:domain/repositories/open_ai_data_repository.dart';
 import 'package:domain/use_case/use_case.dart';
@@ -6,12 +7,15 @@ class OpenAiGetCompletionUC
     extends UseCase<OpenAiGetCompletionUCParams, CompletionResponseDM> {
   OpenAiGetCompletionUC(this.repository);
 
-  final OpenAiDataRepository repository;
+  final OpenAiDataRepository? repository;
   @override
   Future<CompletionResponseDM> getRawFuture(
     OpenAiGetCompletionUCParams params,
-  ) =>
-      repository.getCompletion(text: params.text);
+  ) {
+    if (repository == null) throw NullResponseException();
+
+    return repository!.getCompletion(text: params.text);
+  }
 }
 
 class OpenAiGetCompletionUCParams {

@@ -52,7 +52,7 @@ final routesProvider = Provider.autoDispose<GoRouter>((ref) {
       ),
       GoRoute(
         path: _homePath,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => HomePage.create(),
       )
     ],
   );
